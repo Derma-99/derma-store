@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر DERMA - المنتجات التجميلية والعناية بالبشرة</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Tajawal', sans-serif; background-color: #0b0c10; color: #e5e7eb; }
+    .gold-gradient { background: linear-gradient(135deg, #d4af37, #f39c12); }
+    .gold-text { background: linear-gradient(135deg, #f39c12, #f1c40f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .orange-gold-bg { background: linear-gradient(135deg, #e67e22, #d4af37); }
+    .glass-card { background: rgba(22, 27, 34, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+    .glass-card:hover { border-color: rgba(243, 156, 18, 0.6); transform: translateY(-4px); transition: all 0.3s ease; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="sticky top-0 z-50 glass-card border-b border-amber-500/30 px-4 py-3 shadow-2xl">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="p-2 text-amber-400 hover:text-amber-300 focus:outline-none">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-full orange-gold-bg flex items-center justify-center font-bold text-black text-xl shadow-lg">D</div>
+          <span class="text-2xl font-black tracking-wider gold-text">DERMA</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="openAIModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-black font-bold px-3 py-1.5 rounded-full text-xs sm:text-sm shadow-md transition">
+          <i class="fa-solid fa-robot text-base"></i>
+          <span>مستشار البشرة AI</span>
+        </button>
+        <button onclick="openCart()" class="relative p-2 text-amber-400 hover:text-amber-300">
+          <i class="fa-solid fa-cart-shopping text-2xl"></i>
+          <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <aside id="sidebar" class="fixed inset-y-0 right-0 z-50 w-80 glass-card transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-amber-500/20">
+        <h2 class="text-xl font-bold gold-text">القائمة الرئيسية</h2>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+      </div>
+      <nav class="mt-6 flex flex-col gap-4 text-right">
+        <a href="#products" onclick="toggleSidebar()" class="p-3 rounded-lg hover:bg-amber-500/10 text-amber-200 font-medium flex items-center gap-3"><i class="fa-solid fa-box-open text-amber-400"></i> كافة المنتجات</a>
+        <a href="#about" onclick="toggleSidebar()" class="p-3 rounded-lg hover:bg-amber-500/10 text-amber-200 font-medium flex items-center gap-3"><i class="fa-solid fa-circle-info text-amber-400"></i> من نحن</a>
+        <a href="#contact" onclick="toggleSidebar()" class="p-3 rounded-lg hover:bg-amber-500/10 text-amber-200 font-medium flex items-center gap-3"><i class="fa-solid fa-headset text-amber-400"></i> كيفية التواصل والاستشارة</a>
+        <a href="#reviews" onclick="toggleSidebar()" class="p-3 rounded-lg hover:bg-amber-500/10 text-amber-200 font-medium flex items-center gap-3"><i class="fa-solid fa-star text-amber-400"></i> آراء العملاء</a>
+        <button onclick="openAdminLogin()" class="p-3 rounded-lg hover:bg-amber-500/10 text-amber-200 font-medium flex items-center gap-3 text-right"><i class="fa-solid fa-user-gear text-amber-400"></i> لوحة الإدارة</button>
+      </nav>
+    </div>
+    <div class="text-xs text-gray-400 text-center border-t border-amber-500/20 pt-4">
+      <p>متجر DERMA - كربلاء المقدسة</p>
+      <p class="mt-1 font-mono">WhatsApp: 07800691212</p>
+    </div>
+  </aside>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-12">
+    <section class="text-center py-8 space-y-4">
+      <h1 class="text-3xl sm:text-5xl font-black gold-text">عالم العناية والتجميل الفاخر</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">منتجات طبية تجميلية موثوقة لحل كافة مشاكل البشرة والشعر بأسعار مناسبة داخل العراق.</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-bolt text-orange-500"></i> المعرض التفاعلي السريع
+      </h2>
+      <div id="interactive-slider" class="flex gap-4 overflow-x-auto scrollbar-hide py-4 px-2"></div>
+    </section>
+
+    <section id="products" class="space-y-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between border-b border-amber-500/30 pb-4 gap-4">
+        <h2 class="text-2xl font-bold gold-text">كتالوج المنتجات الكامل</h2>
+        <div class="flex gap-2 text-xs sm:text-sm">
+          <button onclick="filterProducts('all')" class="filter-btn bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30 hover:bg-amber-500/40">الكل</button>
+          <button onclick="filterProducts('face')" class="filter-btn bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30 hover:bg-amber-500/40">البشرة</button>
+          <button onclick="filterProducts('hair')" class="filter-btn bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30 hover:bg-amber-500/40">الشعر</button>
+          <button onclick="filterProducts('sun')" class="filter-btn bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30 hover:bg-amber-500/40">واقي الشمس</button>
+        </div>
+      </div>
+
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="reviews" class="glass-card rounded-2xl p-6 space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-bold gold-text">آراء العملاء (+22 تقييم)</h2>
+        <button onclick="openReviewModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-4 py-2 rounded-lg text-sm">إضافة رأيك</button>
+      </div>
+      <div id="reviews-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto scrollbar-hide p-2"></div>
+    </section>
+
+    <section id="about" class="glass-card rounded-2xl p-6 space-y-4">
+      <h2 class="text-2xl font-bold gold-text">من نحن</h2>
+      <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+        متجر DERMA هو وجهتك الأولى في العراق (كربلاء المقدسة) للحصول على أفضل مستحضرات التجميل والعناية بالبشرة والشعر المصممة بأعلى معايير الجودة الطبية. نركز على توفير حلول حقيقية لمشاكل التصبغات، حب الشباب، تساقط الشعر، وجفاف البشرة بأسعار موحدة وتنافسية مع خدمة توصيل سريعة لكل المحافظات.
+      </p>
+    </section>
+  </main>
+
+  <footer id="contact" class="glass-card border-t border-amber-500/30 py-8 px-4 mt-12 text-center text-sm text-gray-400 space-y-4">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="text-right">
+        <h3 class="font-bold gold-text text-lg">متجر DERMA</h3>
+        <p>الموقع الرئيسي: العراق - كربلاء المقدسة</p>
+      </div>
+      <div class="flex gap-6 text-2xl text-amber-400">
+        <a href="https://wa.me/9647800691212" target="_blank" class="hover:text-amber-300"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://tiktok.com" target="_blank" class="hover:text-amber-300"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://instagram.com" target="_blank" class="hover:text-amber-300"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="text-xs text-gray-500 pt-4 border-t border-gray-800">
+      جميع الحقوق محفوظة © 2026 لـ متجر DERMA
+    </div>
+  </footer>
+
+  <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
+    <div class="glass-card w-full max-w-2xl rounded-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-amber-500/20 pb-4">
+        <h3 class="text-xl font-bold gold-text">سلة المشتريات</h3>
+        <button onclick="closeCart()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+      </div>
+
+      <div id="cart-items" class="space-y-4"></div>
+
+      <div class="border-t border-amber-500/20 pt-4 flex justify-between items-center font-bold text-lg">
+        <span>المجموع الكلي:</span>
+        <span id="cart-total" class="gold-text">0 د.ع</span>
+      </div>
+
+      <form id="checkout-form" onsubmit="submitOrder(event)" class="space-y-4 text-sm border-t border-amber-500/20 pt-4">
+        <h4 class="font-bold text-amber-400 text-base">معلومات التوصيل:</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="text" id="cust-phone" required placeholder="رقم الهاتف (مثال: 07800691212)" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+          <input type="text" id="cust-gov" required placeholder="المحافظة" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+          <input type="text" id="cust-area" required placeholder="المنطقة والشارع" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+          <input type="text" id="cust-landmark" required placeholder="أقرب نقطة دالة" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-2">وقت التوصيل المفضل:</label>
+          <div class="flex gap-4">
+            <label class="flex items-center gap-2"><input type="radio" name="del-time" value="نهاراً" checked class="text-amber-500"> نهاراً</label>
+            <label class="flex items-center gap-2"><input type="radio" name="del-time" value="ليلاً" class="text-amber-500"> ليلاً</label>
+          </div>
+        </div>
+        <button type="submit" class="w-full orange-gold-bg text-black font-bold py-3 rounded-xl hover:opacity-90 transition text-base">إرسال الطلب عبر الواتساب <i class="fa-brands fa-whatsapp text-lg"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div id="ai-modal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 space-y-4">
+      <div class="flex justify-between items-center border-b border-amber-500/20 pb-3">
+        <h3 class="text-lg font-bold gold-text flex items-center gap-2"><i class="fa-solid fa-robot"></i> مستشار البشرة والشعر الذكي</h3>
+        <button onclick="closeAIModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <p class="text-xs text-gray-300">اكتب مشكلة بشرتك أو نوعها (مثال: بشرة دهنية مع حب شباب، تساقط شعر، بقع داكنة) وسيختار لك الذكاء الاصطناعي المنتج الأنسب فوراً.</p>
+      <textarea id="ai-input" rows="3" placeholder="اشرح مشكلتك هنا..." class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-3 text-white focus:outline-none focus:border-amber-500 text-sm"></textarea>
+      <button onclick="getAIAdvice()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-lg text-sm">تحليل واستشارة</button>
+      <div id="ai-result" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs leading-relaxed hidden text-amber-200"></div>
+    </div>
+  </div>
+
+  <div id="review-modal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
+    <div class="glass-card w-full max-w-md rounded-2xl p-6 space-y-4">
+      <div class="flex justify-between items-center border-b border-amber-500/20 pb-3">
+        <h3 class="text-lg font-bold gold-text">إضافة رأيك</h3>
+        <button onclick="closeReviewModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <form onsubmit="submitReview(event)" class="space-y-4">
+        <input id="review-name" type="text" required placeholder="الاسم" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white">
+        <textarea id="review-text" required rows="3" placeholder="اكتب رأيك..." class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white"></textarea>
+        <select id="review-rating" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white">
+          <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+          <option value="4">⭐️⭐️⭐️⭐️</option>
+          <option value="3">⭐️⭐️⭐️</option>
+          <option value="2">⭐️⭐️</option>
+          <option value="1">⭐️</option>
+        </select>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-lg text-sm">إرسال الرأي</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
+    <div class="glass-card w-full max-w-sm rounded-2xl p-6 space-y-4">
+      <div class="flex justify-between items-center border-b border-amber-500/20 pb-3">
+        <h3 class="text-lg font-bold gold-text">لوحة الإدارة</h3>
+        <button onclick="closeAdminLogin()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      </div>
+      <div class="space-y-4">
+        <input id="admin-pass" type="password" placeholder="كلمة المرور" class="w-full bg-gray-900 border border-amber-500/30 rounded-lg p-2.5 text-white">
+        <button onclick="adminLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-lg text-sm">دخول</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const initialProducts = [
+      { id: 1, name: "واقي شمس معدني للأطفال (SPF 50+)", price: 28000, category: "sun", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80", desc: "حماية فائقة وبشرة آمنة للأطفال ضد الأشعة الشمسية، مقاوم للماء.", usage: "يوضع كمية مناسبة على بشرة الطفل قبل التعرض للشمس بـ 20 دقيقة." },
+      { id: 2, name: "كريم البشرة الحساسة", price: 30000, category: "face", img: "https://images.unsplash.com/photo-1608248597261-23d24263725d?auto=format&fit=crop&w=500&q=80", desc: "تقليل تهيج البشرة الحساسة وتقوية حاجز البشرة الطبيعي بأمان.", usage: "يُستخدم يومياً صباحاً ومساءً على بشرة نظيفة." },
+      { id: 3, name: "جل غسول لمكافحة حب الشباب", price: 26000, category: "face", img: "https://images.unsplash.com/photo-1556228722-d119f43e0050?auto=format&fit=crop&w=500&q=80", desc: "ينظف البشرة الدهنية والمعرضة لحب الشباب بعمق ويمنع ظهور البثور.", usage: "تدلك كمية صغيرة على الوجه المبلل ثم يغسل بماء فاتر صباحاً ومساءً." },
+      { id: 4, name: "شامبو ضد القشرة VIAPECIA", price: 27000, category: "hair", img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=500&q=80", desc: "ينظم إفرازات فروة الرأس الدهنية ويقضي على القشرة تماماً.", usage: "يوضع على فروة الرأس المبللة، يدلك لدقيقتين ثم يشطف بالماء." },
+      { id: 5, name: "سيروم فيتامين سي 20%", price: 35000, category: "face", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=500&q=80", desc: "نضارة وتفتيح البشرة وتوحيد لونها وتقليل الخطوط الدقيقة.", usage: "توضع قطرات قليلة على الوجه قبل النوم مع التدليك الخفيف." },
+      { id: 6, name: "سيروم الكولاجين وأوميغا 3", price: 34000, category: "face", img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=500&q=80", desc: "يستعيد مرونة البشرة وشدها بفضل الهيالورونيك أسيد والكولاجين.", usage: "توضع 3-4 قطرات على البشرة المغسولة يومياً." },
+      { id: 7, name: "سيروم حمض الأزلايك والساليسليك", price: 29000, category: "face", img: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=500&q=80", desc: "يعالج البثور، ينظم الدهون، ويقلل التصبغات للبشرة الدهنية.", usage: "يوضع بعد غسل الوجه صباحاً ومساءً قبل المرطب." },
+      { id: 8, name: "كريم معالجة التصبغات والبقع الداكنة", price: 33000, category: "face", img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=500&q=80", desc: "يقلل التصبغات والبقع الداكنة، يفتح البشرة ويمنحها إشراقة مثالية.", usage: "يوضع على أماكن التصبغات أو الوجه بالكامل مرتين يومياً." },
+      { id: 9, name: "سيروم الريتينول 1%", price: 35000, category: "face", img: "https://images.unsplash.com/photo-1608248597261-23d24263725d?auto=format&fit=crop&w=500&q=80", desc: "يجدد خلايا البشرة ويقلل التجاعيد ويشد المسام الواسعة.", usage: "تُوضع قطرات قليلة ليلاً على بشرة جافة مع التدرج في الاستخدام." },
+      { id: 10, name: "بخاخ العناية بتساقط الشعر VIAPECIA", price: 33000, category: "hair", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80", desc: "يحفز نمو الشعر ويقلل التساقط بفضل مركب البروكابيل 5%.", usage: "يُرش على فروة الرأس مباشرة مرتين يومياً مع التدليك الخفيف." }
+    ];
+
+    let products = [...initialProducts];
+    let cart = [];
+    let reviews = [
+      { name: "سارة", rating: 5, text: "منتجات ممتازة جدًا ومناسبة للبشرة الحساسة." },
+      { name: "محمد", rating: 5, text: "خدمة التوصيل سريعة جدًا والمنتجات أصلية." },
+      { name: "نور", rating: 4, text: "مكافحة حب الشباب فعالة، وأحببت السيروم الخاص بها." },
+      { name: "رنا", rating: 5, text: "تمكنت من حل مشكلة التصبغات بعد استخدام كريم التفتيح." }
+    ];
+
+    function renderProducts(items = products) {
+      const grid = document.getElementById('products-grid');
+      const slider = document.getElementById('interactive-slider');
+      grid.innerHTML = '';
+      slider.innerHTML = '';
+
+      items.forEach(p => {
+        grid.innerHTML += `
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+            <div>
+              <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover">
+              <div class="p-4 space-y-2">
+                <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">${p.category}</span>
+                <h3 class="font-bold text-lg text-white">${p.name}</h3>
+                <p class="text-xs text-gray-400 line-clamp-2">${p.desc}</p>
+                <p class="text-xs text-amber-200/80"><span class="font-bold text-amber-400">الاستخدام:</span> ${p.usage}</p>
+              </div>
+            </div>
+            <div class="p-4 border-t border-amber-500/20 flex items-center justify-between">
+              <span class="font-bold gold-text text-base">${p.price.toLocaleString()} د.ع</span>
+              <button onclick="addToCart(${p.id})" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> للسلة
+              </button>
+            </div>
+          </div>
+        `;
+
+        slider.innerHTML += `
+          <div class="min-w-[200px] glass-card p-3 rounded-xl flex-shrink-0 space-y-2 text-center">
+            <img src="${p.img}" class="w-full h-28 object-cover rounded-lg">
+            <h4 class="font-bold text-xs truncate text-amber-200">${p.name}</h4>
+            <p class="text-xs font-bold gold-text">${p.price.toLocaleString()} د.ع</p>
+            <button onclick="addToCart(${p.id})" class="w-full bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-black font-bold py-1 rounded text-xs border border-amber-500/30">إضافة</button>
+          </div>
+        `;
+      });
+    }
+
+    function updateFilterButtons(activeCat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-black');
+        btn.classList.add('bg-amber-500/20', 'text-amber-300');
+      });
+
+      const activeBtn = [...document.querySelectorAll('.filter-btn')].find(btn => btn.textContent.trim() === {
+        all: 'الكل',
+        face: 'البشرة',
+        hair: 'الشعر',
+        sun: 'واقي الشمس'
+      }[activeCat]);
+
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-amber-500/20', 'text-amber-300');
+        activeBtn.classList.add('bg-amber-500', 'text-black');
+      }
+    }
+
+    function filterProducts(cat) {
+      const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+      renderProducts(filtered);
+      updateFilterButtons(cat);
+    }
+
+    function addToCart(id) {
+      const item = products.find(p => p.id === id);
+      if (!item) return;
+
+      const inCart = cart.find(c => c.id === id);
+      if (inCart) inCart.qty++;
+      else cart.push({ ...item, qty: 1 });
+
+      updateCartUI();
+    }
+
+    function increaseQty(id) {
+      const item = cart.find(c => c.id === id);
+      if (item) item.qty++;
+      updateCartUI();
+    }
+
+    function decreaseQty(id) {
+      const item = cart.find(c => c.id === id);
+      if (!item) return;
+
+      if (item.qty > 1) item.qty--;
+      else removeFromCart(id);
+
+      updateCartUI();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(c => c.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const cartCount = document.getElementById('cart-count');
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+
+      const totalQty = cart.reduce((acc, curr) => acc + curr.qty, 0);
+      const totalPrice = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+
+      cartCount.innerText = totalQty;
+      cartTotal.innerText = totalPrice.toLocaleString() + ' د.ع';
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="text-gray-400 text-center text-sm py-4">السلة فارغة حالياً</p>';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map(item => `
+        <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded-xl border border-amber-500/20 text-xs sm:text-sm">
+          <div class="flex items-center gap-3">
+            <img src="${item.img}" class="w-12 h-12 object-cover rounded-lg">
+            <div>
+              <h4 class="font-bold text-white">${item.name}</h4>
+              <p class="text-amber-400 font-bold">${item.price.toLocaleString()} د.ع</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="decreaseQty(${item.id})" class="w-7 h-7 rounded-full bg-gray-800 text-white">-</button>
+            <span class="font-bold text-white">${item.qty}</span>
+            <button onclick="increaseQty(${item.id})" class="w-7 h-7 rounded-full bg-amber-500 text-black font-bold">+</button>
+            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300">حذف</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+
+      if (cart.length === 0) {
+        alert('السلة فارغة، أضف منتجاً أولاً');
+        return;
+      }
+
+      const phone = document.getElementById('cust-phone').value.trim();
+      const gov = document.getElementById('cust-gov').value.trim();
+      const area = document.getElementById('cust-area').value.trim();
+      const landmark = document.getElementById('cust-landmark').value.trim();
+      const deliveryTime = document.querySelector('input[name="del-time"]:checked')?.value || 'نهاراً';
+
+      const itemsSummary = cart.map(item => `- ${item.name} × ${item.qty}`).join('%0A');
+      const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+      const message = `
+مرحباً، أود تقديم طلب من متجر DERMA:
+%0A
+${itemsSummary}
+%0A
+المجموع: ${total.toLocaleString()} د.ع
+%0A
+رقم الهاتف: ${phone}
+%0A
+المحافظة: ${gov}
+%0A
+المنطقة: ${area}
+%0A
+أقرب نقطة دالة: ${landmark}
+%0A
+وقت التوصيل: ${deliveryTime}
+      `.trim();
+
+      const waLink = `https://wa.me/9647800691212?text=${encodeURIComponent(message)}`;
+      window.open(waLink, '_blank');
+
+      document.getElementById('checkout-form').reset();
+      cart = [];
+      updateCartUI();
+      closeCart();
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('translate-x-full');
+    }
+
+    function openCart() {
+      document.getElementById('cart-modal').classList.remove('hidden');
+      document.getElementById('cart-modal').classList.add('flex');
+    }
+
+    function closeCart() {
+      document.getElementById('cart-modal').classList.add('hidden');
+      document.getElementById('cart-modal').classList.remove('flex');
+    }
+
+    function openAIModal() {
+      document.getElementById('ai-modal').classList.remove('hidden');
+      document.getElementById('ai-modal').classList.add('flex');
+    }
+
+    function closeAIModal() {
+      document.getElementById('ai-modal').classList.add('hidden');
+      document.getElementById('ai-modal').classList.remove('flex');
+    }
+
+    function openReviewModal() {
+      document.getElementById('review-modal').classList.remove('hidden');
+      document.getElementById('review-modal').classList.add('flex');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-modal').classList.add('hidden');
+      document.getElementById('review-modal').classList.remove('flex');
+    }
+
+    function openAdminLogin() {
+      document.getElementById('admin-modal').classList.remove('hidden');
+      document.getElementById('admin-modal').classList.add('flex');
+    }
+
+    function closeAdminLogin() {
+      document.getElementById('admin-modal').classList.add('hidden');
+      document.getElementById('admin-modal').classList.remove('flex');
+    }
+
+    function adminLogin() {
+      const pass = document.getElementById('admin-pass').value.trim();
+      if (pass === 'derma123') {
+        alert('تم تسجيل الدخول بنجاح');
+        closeAdminLogin();
+      } else {
+        alert('كلمة المرور غير صحيحة');
+      }
+    }
+
+    function getAIAdvice() {
+      const input = document.getElementById('ai-input').value.trim();
+      const result = document.getElementById('ai-result');
+
+      if (!input) {
+        result.textContent = 'يرجى كتابة مشكلة البشرة أو الشعر أولاً.';
+        result.classList.remove('hidden');
+        return;
+      }
+
+      const text = input.toLowerCase();
+      let suggested = null;
+
+      if (text.includes('حب شباب') || text.includes('بثور') || text.includes('دهنية')) {
+        suggested = initialProducts.find(p => p.name.includes('حب الشباب') || p.category === 'face');
+      } else if (text.includes('تساقط') || text.includes('شعر') || text.includes('قشرة')) {
+        suggested = initialProducts.find(p => p.name.includes('VIAPECIA') || p.category === 'hair');
+      } else if (text.includes('بقع') || text.includes('تصبغات') || text.includes('توحيد')) {
+        suggested = initialProducts.find(p => p.name.includes('التصبغات') || p.name.includes('فيتامين سي'));
+      } else if (text.includes('جفاف') || text.includes('حساسة') || text.includes('تهيج')) {
+        suggested = initialProducts.find(p => p.name.includes('البشرة الحساسة'));
+      } else if (text.includes('شمس') || text.includes('أشعة') || text.includes('وقاية')) {
+        suggested = initialProducts.find(p => p.category === 'sun');
+      } else {
+        suggested = initialProducts[0];
+      }
+
+      const suggestionText = `
+        التوصية الأنسب لك: ${suggested.name}
+        %0A
+        السبب: ${suggested.desc}
+        %0A
+        الاستخدام: ${suggested.usage}
+      `;
+
+      result.innerHTML = suggestionText.replace(/%0A/g, '<br>');
+      result.classList.remove('hidden');
+    }
+
+    function submitReview(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('review-name').value.trim();
+      const text = document.getElementById('review-text').value.trim();
+      const rating = Number(document.getElementById('review-rating').value);
+
+      if (!name || !text) return;
+
+      reviews.unshift({ name, rating, text });
+      renderReviews();
+      closeReviewModal();
+      document.getElementById('review-name').value = '';
+      document.getElementById('review-text').value = '';
+      document.getElementById('review-rating').value = '5';
+    }
+
+    function renderReviews() {
+      const reviewsList = document.getElementById('reviews-list');
+      reviewsList.innerHTML = '';
+
+      reviews.forEach(r => {
+        const stars = '⭐'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+
+        reviewsList.innerHTML += `
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white">${r.name}</h3>
+              <span class="text-xs text-amber-300">${stars}</span>
+            </div>
+            <p class="text-xs text-gray-300 mt-2 leading-relaxed">${r.text}</p>
+          </div>
+        `;
+      });
+    }
+
+    renderProducts();
+    renderReviews();
+    updateCartUI();
+  </script>
+</body>
+</html>
